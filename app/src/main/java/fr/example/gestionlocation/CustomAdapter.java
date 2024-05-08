@@ -54,6 +54,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.location_design_txt.setText(String.valueOf(location_design.get(position)));
         holder.location_nbrdays_txt.setText(String.valueOf(location_nbrdays.get(position)));
         holder.location_money_txt.setText(String.valueOf(location_money.get(position)));
+        int money = Integer.parseInt(location_money.get(position).toString());
+        int nbrDays = Integer.parseInt(location_nbrdays.get(position).toString());
+        int location_lawn = money * nbrDays ;
+        holder.location_lawn_txt.setText(String.valueOf(location_lawn));
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +78,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView location_id_txt, location_name_txt, location_design_txt, location_nbrdays_txt, location_money_txt;
+        TextView location_id_txt, location_name_txt, location_design_txt, location_nbrdays_txt, location_money_txt, location_lawn_txt;
         ConstraintLayout mainLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +87,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             location_design_txt = itemView.findViewById(R.id.location_design_txt);
             location_nbrdays_txt = itemView.findViewById(R.id.location_nbrdays_txt);
             location_money_txt = itemView.findViewById(R.id.location_money_txt);
+            location_lawn_txt = itemView.findViewById(R.id.location_lawn_txt);
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }

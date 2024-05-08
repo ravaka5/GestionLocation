@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,13 +37,28 @@ public class AddActivity extends AppCompatActivity {
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
-                myDB.addLocation(name_input.getText().toString().trim(),
-                        design_input.getText().toString().trim(),
-                        Integer.valueOf(nbrdays_input.getText().toString().trim()),
-                        Integer.valueOf(money_input.getText().toString().trim()));
-                Intent intent = new Intent(AddActivity.this,MainActivity.class);
-                startActivity(intent);
+
+                String name = name_input.getText().toString().trim();
+                String design = design_input.getText().toString().trim();
+                String nbrDaysStr = nbrdays_input.getText().toString().trim();
+                String moneyStr = money_input.getText().toString().trim();
+
+                if (name.isEmpty() || design.isEmpty() || nbrDaysStr.isEmpty() || moneyStr.isEmpty()) {
+                    Toast.makeText(AddActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    return; // Sortie de la méthode onClick car les champs sont vides
+                }
+                else{
+                    MyDatabaseHelper myDB = new MyDatabaseHelper(AddActivity.this);
+                    myDB.addLocation(name_input.getText().toString().trim(),
+                            design_input.getText().toString().trim(),
+                            Integer.valueOf(nbrdays_input.getText().toString().trim()),
+                            Integer.valueOf(money_input.getText().toString().trim()));
+                    Intent intent = new Intent(AddActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
+
+
+
 
             }
         });

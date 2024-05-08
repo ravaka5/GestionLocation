@@ -84,9 +84,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
          if(result == -1){
              Toast.makeText(context, "Echec de la modification", Toast.LENGTH_SHORT).show();
          }else{
-             Toast.makeText(context, "Modification reussie de"+cv, Toast.LENGTH_SHORT).show();
+             Toast.makeText(context, "Modification reussie de la location de la voiture "+cv.get(COLUMN_DESIGN), Toast.LENGTH_SHORT).show();
          }
-
      }
 
      void deleteOneRow(String row_id){

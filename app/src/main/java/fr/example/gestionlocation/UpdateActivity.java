@@ -1,6 +1,7 @@
 package fr.example.gestionlocation;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,12 +43,23 @@ public class UpdateActivity extends AppCompatActivity {
         UpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
                 name=name_input.getText().toString().trim();
                 nbrdays=nbrdays_input.getText().toString().trim();
                 money=money_input.getText().toString().trim();
                 design=design_input.getText().toString().trim();
-                myDB.updateData(id,name,design,nbrdays,money);
+
+                if (name.isEmpty() || design.isEmpty() || nbrdays.isEmpty() || money.isEmpty()) {
+                    Toast.makeText(UpdateActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                else{
+                    MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
+                    myDB.updateData(id,name,design,nbrdays,money);
+                    Intent intent = new Intent(UpdateActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
         DeleteButton.setOnClickListener(new View.OnClickListener() {
