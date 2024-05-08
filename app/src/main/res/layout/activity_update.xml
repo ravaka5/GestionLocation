@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddActivity">
+    tools:context=".UpdateActivity">
 
     <EditText
         android:id="@+id/name_input2"
@@ -14,6 +14,8 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="48dp"
+        android:clickable="true"
+        android:editable="true"
         android:ems="10"
         android:hint="nom du locataire"
         android:inputType="text"
@@ -59,6 +61,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="48dp"
+        android:editable="true"
         android:ems="10"
         android:hint="taux journalier"
         android:inputType="number"
@@ -74,10 +77,23 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="48dp"
-        android:text="Ajouter"
+        android:text="Modifier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/money_input2" />
+
+    <Button
+        android:id="@+id/DeleteButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="48dp"
+        android:text="Supprimer"
+        android:textColor="#E10202"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UpdateButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

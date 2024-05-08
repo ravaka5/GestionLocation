@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class AddActivity extends AppCompatActivity {
 
-    EditText name_input, design_input, nbrdays_input,money_input;
+    EditText name_input, design_input,nbrdays_input,money_input;
     Button AddButton ;
 
     @Override
@@ -28,11 +28,11 @@ public class AddActivity extends AppCompatActivity {
             return insets;
         });
 
-        name_input = findViewById(R.id.name_input);
-        design_input = findViewById(R.id.design_input);
-        nbrdays_input = findViewById(R.id.nbrdays_input);
-        money_input = findViewById(R.id.money_input);
-        AddButton = findViewById(R.id.AddButton);
+        name_input = findViewById(R.id.name_input2);
+        design_input = findViewById(R.id.design_input2);
+        nbrdays_input = findViewById(R.id.nbrdays_input2);
+        money_input = findViewById(R.id.money_input2);
+        AddButton = findViewById(R.id.UpdateButton);
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,8 +41,9 @@ public class AddActivity extends AppCompatActivity {
                         design_input.getText().toString().trim(),
                         Integer.valueOf(nbrdays_input.getText().toString().trim()),
                         Integer.valueOf(money_input.getText().toString().trim()));
-                Intent intent = new Intent(AddActivity.this, MainActivity.class);
+                Intent intent = new Intent(AddActivity.this,MainActivity.class);
                 startActivity(intent);
+
             }
         });
     }
