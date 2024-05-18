@@ -91,4 +91,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
+
+    public void clearData() {
+        if (location_id != null) location_id.clear();
+        if (location_name != null) location_name.clear();
+        if (location_design != null) location_design.clear();
+        if (location_nbrdays != null) location_nbrdays.clear();
+        if (location_money != null) location_money.clear();
+
+    }
+
 }

@@ -65,8 +65,10 @@ public class UpdateActivity extends AppCompatActivity {
         DeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmDialog();
-
+                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
+                myDB.deleteOneRow(id);
+                Intent intent = new Intent(UpdateActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -93,24 +95,5 @@ public class UpdateActivity extends AppCompatActivity {
         }
     }
 
-    void confirmDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Supprimer"+ name +" ?");
-        builder.setMessage("Etes vous surs de vouloir supprimer la location de "+name+ " ?");
-        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
-                myDB.deleteOneRow(id);
-                finish();
-            }
-        });
-        builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
-        builder.create().show();
-    }
 }

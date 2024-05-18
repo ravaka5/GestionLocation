@@ -4,7 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -59,11 +62,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmDialog();
-            }
+                customAdapter.clearData();
+                StoreDataInArrays();
+                }
         });
 
         myDB = new MyDatabaseHelper(MainActivity.this);
@@ -74,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
         location_money = new ArrayList<>();
 
         StoreDataInArrays();
-
-        customAdapter = new CustomAdapter(MainActivity.this,this, location_id,location_name,location_design,location_nbrdays,location_money);
-        recyclerView.setAdapter(customAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
 
     @Override
@@ -88,42 +89,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void StoreDataInArrays(){
-        Cursor cursor = myDB.readAllData();
-        if(cursor.getCount() == 0){
-            empty_imageview.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-        }else{
-            while (cursor.moveToNext()){
-                location_id.add(cursor.getString(0));
-                location_name.add(cursor.getString(1));
-                location_design.add(cursor.getString(2));
-                location_nbrdays.add(cursor.getString(3));
-                location_money.add(cursor.getString(4));
-            }
-            empty_imageview.setVisibility(View.GONE);
-            no_data.setVisibility(View.GONE);
-        }
-    }
 
-    void confirmDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Supprimer TOUT ?");
-        builder.setMessage("Etes vous surs de vouloir supprimer toutes les Locations?");
-        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+    void StoreDataInArrays() {
+        myDB.readAllData(new VolleyCursorCallback() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                MyDatabaseHelper myDB = new MyDatabaseHelper(MainActivity.this);
-                myDB.deleteAllData();
-                recreate();
-            }
-        });
-        builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onSuccess(Cursor cursor) {
+                if (cursor.getCount() == 0) {
+                    empty_imageview.setVisibility(View.VISIBLE);
+                    no_data.setVisibility(View.VISIBLE);
+                } else {
+                    while (cursor.moveToNext()) {
+                        location_id.add(cursor.getString(0));
+                        location_name.add(cursor.getString(1));
+                        location_design.add(cursor.getString(2));
+                        location_nbrdays.add(cursor.getString(3));
+                        location_money.add(cursor.getString(4));
+                    }
+                    empty_imageview.setVisibility(View.GONE);
+                    no_data.setVisibility(View.GONE);
+                }
+
+                customAdapter = new CustomAdapter(MainActivity.this,getApplicationContext(), location_id,location_name,location_design,location_nbrdays,location_money);
+                recyclerView.setAdapter(customAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
             }
+
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+                // Gérer les erreurs ici si nécessaire
+            }
         });
-        builder.create().show();
+
     }
+
+
+
+
 }

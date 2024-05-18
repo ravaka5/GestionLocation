@@ -13,6 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 public class AddActivity extends AppCompatActivity {
 
     EditText name_input, design_input,nbrdays_input,money_input;
@@ -56,9 +59,6 @@ public class AddActivity extends AppCompatActivity {
                     Intent intent = new Intent(AddActivity.this,MainActivity.class);
                     startActivity(intent);
                 }
-
-
-
 
             }
         });
